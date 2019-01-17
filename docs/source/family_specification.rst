@@ -223,7 +223,7 @@ RecordType at creation. A RecordType is a user-defined list of
 PropertySchemas, each of which has a name and data type.
 PropertySchemas may be designated as ``required``. A required Property
 must be initialized with a value at the time of a Record's creation.
-For example, a ``Coffe`` type might list ``species`` as required, but
+For example, a ``Coffe`` type might list ``varieties`` as required, but
 not ``temperature``, since temperature wouldn't be known until
 measurements were taken. Properties not specified at Record creation
 are initialized as empty lists.

@@ -69,23 +69,23 @@ const AddCoffeeForm = {
                }),
                value: vnode.state.serialNumber
              })),
-             _formGroup('Species (ASFIS 3-letter code)', m('input.form-control', {
+             _formGroup('varieties', m('input.form-control', {
                type: 'text',
                oninput: m.withAttr('value', (value) => {
-                 vnode.state.species = value
+                 vnode.state.varieties = value
                }),
-               value: vnode.state.species
+               value: vnode.state.varieties
              })),
 
              layout.row([
-               _formGroup('Length (m)', m('input.form-control', {
+               _formGroup('Volumes (L)', m('input.form-control', {
                  type: 'number',
                  min: 0,
                  step: 'any',
                  oninput: m.withAttr('value', (value) => {
-                   vnode.state.lengthInCM = value
+                   vnode.state.volumeInL = value
                  }),
-                 value: vnode.state.lengthInCM
+                 value: vnode.state.volumeInL
                })),
                _formGroup('Weight (kg)', m('input.form-control', {
                  type: 'number',
@@ -189,13 +189,13 @@ const _handleSubmit = (signingKey, state) => {
     recordType: 'coffee',
     properties: [
       {
-        name: 'species',
-        stringValue: state.species,
+        name: 'varieties',
+        stringValue: state.varieties,
         dataType: payloads.createRecord.enum.STRING
       },
       {
         name: 'length',
-        numberValue: parsing.toInt(state.lengthInCM),
+        numberValue: parsing.toInt(state.volumeInL),
         dataType: payloads.createRecord.enum.NUMBER
       },
       {

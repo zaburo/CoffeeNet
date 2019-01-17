@@ -271,13 +271,13 @@ class TestSupplyChain(unittest.TestCase):
             Subsequent attempts to create a type with that name will
             fail.
             ''',
-            ['species', 'weight', 'temperature',
+            ['varieties', 'weight', 'temperature',
              'location', 'is_trout', 'how_big'])
 
         self.assert_valid(
             jin.create_record_type(
                 'coffee',
-                ('species', PropertySchema.STRING,
+                ('varieties', PropertySchema.STRING,
                  { 'required': True, 'fixed': True }),
                 ('weight', PropertySchema.NUMBER,
                  { 'required': True, 'unit': 'grams' }),
@@ -321,20 +321,20 @@ class TestSupplyChain(unittest.TestCase):
             he neglected to include initial property values for the
             record type's require properties. In this case, a `coffee`
             record cannot be created without value for the properties
-            `species` and `weight`.
+            `varieties` and `weight`.
             ''')
 
         self.assert_invalid(
             jin.create_record(
                 'coffee-456',
                 'coffee',
-                {'species': 'trout', 'weight': 'heavy'}))
+                {'varieties': 'trout', 'weight': 'heavy'}))
 
         self.narrate(
             '''
             Jin gave the value 'heavy' for the property `weight`, but the
             type for that property is required to be int. When he
-            provides a string value for `species` and an int value for
+            provides a string value for `varieties` and an int value for
             `weight`, the record can be successfully created.
             ''')
 
@@ -342,7 +342,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'coffee-456',
                 'coffee',
-                {'species': 'trout', 'how_big': Enum('small')}))
+                {'varieties': 'trout', 'how_big': Enum('small')}))
 
         self.narrate(
             '''
@@ -354,7 +354,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'coffee-456',
                 'coffee',
-                {'species': 'trout', 'location': {
+                {'varieties': 'trout', 'location': {
                     'hemisphere': 'north',
                     'gps': {'lat': 45, 'long': 45}
                 }}))
@@ -369,7 +369,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'coffee-456',
                 'coffee',
-                {'species': 'trout', 'weight': 5,
+                {'varieties': 'trout', 'weight': 5,
                  'temperature': -1000}))
 
         self.narrate(
@@ -382,7 +382,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'coffee-456',
                 'coffee',
-                {'species': 'trout', 'weight': 5,
+                {'varieties': 'trout', 'weight': 5,
                  'is_trout': True, 'how_big': Enum('bigger'),
                  'location': {
                     'hemisphere': 'north',
@@ -414,17 +414,17 @@ class TestSupplyChain(unittest.TestCase):
         self.assert_invalid(
             jin.update_properties(
                 'coffee-???',
-                {'species': 'flounder'}))
+                {'varieties': 'flounder'}))
 
         self.narrate(
             '''
-            Jin attempts to update species, but it is a static property.
+            Jin attempts to update varieties, but it is a static property.
             ''')
 
         self.assert_invalid(
             jin.update_properties(
                 'coffee-456',
-                {'species': 'bass'}))
+                {'varieties': 'bass'}))
 
         self.narrate(
             '''
@@ -869,7 +869,7 @@ class TestSupplyChain(unittest.TestCase):
         self.assertEqual(get_record['owner'], sun.public_key)
         self.assertEqual(get_record['recordId'], 'coffee-456')
 
-        for attr in ('species',
+        for attr in ('varieties',
                      'temperature',
                      'weight',
                      'is_trout',

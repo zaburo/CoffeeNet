@@ -58,7 +58,7 @@ const CoffeeList = {
         m(Table, {
           headers: [
             'Serial Number',
-            'Species',
+            'varieties',
             'Added',
             'Updated',
             'Updates'
@@ -70,7 +70,7 @@ const CoffeeList = {
                   m(`a[href=/coffee/${rec.recordId}]`, {
                     oncreate: m.route.link
                   }, truncate(rec.recordId, { length: 32 })),
-                  getPropertyValue(rec, 'species'),
+                  getPropertyValue(rec, 'varieties'),
                   // This is the "created" time, synthesized from properties
                   // added on the initial create
                   formatTimestamp(getOldestPropertyUpdateTime(rec)),
